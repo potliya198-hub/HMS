@@ -3,431 +3,395 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏠 Hostel Management System</title>
+<title>🏠 HMS - Hostel Management System</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-  min-height: 100vh; color: #fff;
-}
-.screen { display: none; padding: 20px 16px; max-width: 480px; margin: 0 auto; }
+body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); min-height: 100vh; color: #fff; }
+.screen { display: none; padding: 20px 16px 80px; max-width: 480px; margin: 0 auto; }
 .screen.active { display: block; }
-
-/* Header */
-.header {
-  background: linear-gradient(90deg, #6366f1, #8b5cf6);
-  padding: 20px; text-align: center;
-  box-shadow: 0 4px 20px rgba(99,102,241,0.4);
-  position: sticky; top: 0; z-index: 100;
-}
+.header { background: linear-gradient(90deg, #6366f1, #8b5cf6); padding: 20px; text-align: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px rgba(99,102,241,0.4); }
 .header h1 { font-size: 22px; font-weight: 900; }
 .header p { font-size: 12px; opacity: 0.8; margin-top: 4px; }
-
-/* Cards */
-.card {
-  background: rgba(255,255,255,0.08);
-  border-radius: 20px; padding: 20px;
-  margin-bottom: 16px;
-  border: 1px solid rgba(255,255,255,0.1);
-  backdrop-filter: blur(10px);
-}
-
-/* Inputs */
-input, select {
-  width: 100%; padding: 14px 16px;
-  border-radius: 14px; border: 2px solid rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.08);
-  color: #fff; font-size: 15px; outline: none;
-  margin-bottom: 12px; transition: border 0.2s;
-}
-input:focus, select:focus { border-color: #6366f1; }
+.card { background: rgba(255,255,255,0.08); border-radius: 20px; padding: 20px; margin-bottom: 16px; border: 1px solid rgba(255,255,255,0.1); }
+input { width: 100%; padding: 14px 16px; border-radius: 14px; border: 2px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.08); color: #fff; font-size: 15px; outline: none; margin-bottom: 12px; display: block; }
 input::placeholder { color: rgba(255,255,255,0.4); }
-select option { background: #1a1a2e; color: #fff; }
-
-/* Buttons */
-.btn {
-  width: 100%; padding: 15px; border-radius: 16px;
-  border: none; font-size: 15px; font-weight: 800;
-  cursor: pointer; transition: all 0.3s; letter-spacing: 0.5px;
-}
-.btn-primary { background: linear-gradient(90deg, #6366f1, #8b5cf6); color: #fff; box-shadow: 0 4px 16px rgba(99,102,241,0.4); }
-.btn-success { background: linear-gradient(90deg, #22c55e, #16a34a); color: #fff; box-shadow: 0 4px 16px rgba(34,197,94,0.3); }
-.btn-danger { background: linear-gradient(90deg, #ef4444, #dc2626); color: #fff; box-shadow: 0 4px 16px rgba(239,68,68,0.3); }
-.btn-orange { background: linear-gradient(90deg, #f97316, #ea580c); color: #fff; box-shadow: 0 4px 16px rgba(249,115,22,0.3); }
-.btn-sm { padding: 10px 16px; font-size: 13px; width: auto; border-radius: 10px; }
-.btn:active { transform: scale(0.97); }
-.btn:disabled { opacity: 0.6; cursor: not-allowed; }
-
-/* OTP Box */
-.otp-box {
-  display: flex; gap: 8px; justify-content: center; margin-bottom: 16px;
-}
-.otp-box input {
-  width: 48px; height: 56px; text-align: center;
-  font-size: 22px; font-weight: 800; padding: 0;
-  border-radius: 12px; margin: 0;
-}
-
-/* Login Tabs */
-.tabs { display: flex; background: rgba(255,255,255,0.06); border-radius: 14px; padding: 4px; margin-bottom: 20px; }
-.tab { flex: 1; padding: 12px; border-radius: 10px; border: none; background: transparent; color: #aaa; font-weight: 800; font-size: 13px; cursor: pointer; transition: all 0.2s; }
-.tab.active { background: linear-gradient(90deg, #6366f1, #8b5cf6); color: #fff; }
-
-/* Dashboard */
-.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+input:focus { border-color: #6366f1; }
+.btn { width: 100%; padding: 15px; border-radius: 16px; border: none; font-size: 15px; font-weight: 800; cursor: pointer; margin-bottom: 10px; display: block; }
+.btn-primary { background: linear-gradient(90deg, #6366f1, #8b5cf6); color: #fff; }
+.btn-success { background: linear-gradient(90deg, #22c55e, #16a34a); color: #fff; }
+.btn-danger { background: linear-gradient(90deg, #ef4444, #dc2626); color: #fff; }
+.btn-orange { background: linear-gradient(90deg, #f97316, #ea580c); color: #fff; }
+.btn-gray { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+.tab-row { display: flex; gap: 10px; margin-bottom: 20px; }
+.tab-btn { flex: 1; padding: 14px; border-radius: 14px; border: 2px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: #aaa; font-size: 14px; font-weight: 800; cursor: pointer; }
+.tab-btn.active { background: linear-gradient(90deg, #6366f1, #8b5cf6); color: #fff; border-color: transparent; }
+.hostel-row { display: flex; gap: 10px; margin-bottom: 12px; }
+.hostel-btn { flex: 1; padding: 12px; border-radius: 14px; border: 2px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: #aaa; font-weight: 700; font-size: 14px; cursor: pointer; }
+.hostel-btn.active { border-color: #6366f1; background: rgba(99,102,241,0.2); color: #818cf8; }
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
 .stat-card { border-radius: 18px; padding: 16px; text-align: center; }
 .stat-card p:first-child { font-size: 11px; opacity: 0.8; margin-bottom: 6px; }
 .stat-card p:last-child { font-size: 26px; font-weight: 900; }
-
-/* Entry Cards */
-.entry-card {
-  background: rgba(255,255,255,0.06); border-radius: 16px;
-  padding: 16px; margin-bottom: 10px;
-  border-left: 4px solid #6366f1;
-  display: flex; gap: 12px; align-items: center;
-}
-.entry-avatar {
-  width: 56px; height: 56px; border-radius: 12px;
-  object-fit: cover; flex-shrink: 0;
-  background: rgba(255,255,255,0.1);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 24px;
-}
-.entry-avatar img { width: 56px; height: 56px; border-radius: 12px; object-fit: cover; }
-.entry-info { flex: 1; }
-.entry-info h4 { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+.entry-card { background: rgba(255,255,255,0.06); border-radius: 16px; padding: 14px; margin-bottom: 10px; display: flex; gap: 12px; align-items: center; border-left: 4px solid #6366f1; }
+.entry-avatar { width: 56px; height: 56px; border-radius: 12px; flex-shrink: 0; overflow: hidden; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 24px; }
+.entry-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.entry-info h4 { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
 .entry-info p { font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 2px; }
-.badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+.badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; margin-right: 4px; }
 .badge-out { background: rgba(239,68,68,0.2); color: #fca5a5; }
 .badge-in { background: rgba(34,197,94,0.2); color: #86efac; }
 .badge-visitor { background: rgba(249,115,22,0.2); color: #fdba74; }
-
-/* Camera */
-#cameraContainer { position: relative; margin-bottom: 16px; }
-#cameraPreview { width: 100%; border-radius: 16px; background: #000; display: none; }
-#capturedPhoto { width: 100%; border-radius: 16px; display: none; }
-.camera-btns { display: flex; gap: 10px; }
-
-/* Nav */
-.bottom-nav {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  background: rgba(15,20,60,0.95); backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(255,255,255,0.1);
-  display: flex; padding: 8px 0 12px;
-}
-.nav-btn { flex: 1; background: none; border: none; cursor: pointer; padding: 8px 4px; display: flex; flex-direction: column; align-items: center; gap: 3px; }
-.nav-btn span:first-child { font-size: 22px; }
-.nav-btn span:last-child { font-size: 10px; color: #888; font-weight: 600; }
-.nav-btn.active span:last-child { color: #818cf8; }
-
-.pb80 { padding-bottom: 80px; }
-.mt12 { margin-top: 12px; }
-.text-center { text-align: center; }
-.text-sm { font-size: 13px; color: rgba(255,255,255,0.6); }
-.divider { text-align: center; color: rgba(255,255,255,0.3); margin: 12px 0; font-size: 13px; }
-.error { color: #fca5a5; font-size: 13px; margin-bottom: 10px; text-align: center; }
-.success-msg { color: #86efac; font-size: 13px; margin-bottom: 10px; text-align: center; }
-.loading { text-align: center; padding: 40px; color: rgba(255,255,255,0.5); }
-#recaptcha-container { margin-bottom: 12px; }
-.hostel-type { display: flex; gap: 10px; margin-bottom: 12px; }
-.hostel-btn { flex: 1; padding: 12px; border-radius: 14px; border: 2px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: #aaa; cursor: pointer; font-weight: 700; font-size: 14px; transition: all 0.2s; }
-.hostel-btn.active { border-color: #6366f1; background: rgba(99,102,241,0.2); color: #818cf8; }
+.otp-row { display: flex; gap: 8px; justify-content: center; margin-bottom: 16px; }
+.otp-row input { width: 48px; height: 56px; text-align: center; font-size: 22px; font-weight: 800; padding: 0; border-radius: 12px; margin: 0; }
+.msg-success { color: #86efac; font-size: 13px; text-align: center; margin-bottom: 10px; }
+.msg-error { color: #fca5a5; font-size: 13px; text-align: center; margin-bottom: 10px; }
+video, .preview-img { width: 100%; border-radius: 16px; margin-bottom: 10px; background: #000; display: none; }
+.cam-row { display: flex; gap: 8px; margin-bottom: 10px; }
+.cam-row .btn { margin: 0; }
+.filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.filter-btn { padding: 8px 14px; border-radius: 10px; border: none; font-size: 12px; font-weight: 700; cursor: pointer; }
+#recaptcha-container { margin-bottom: 10px; }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <h1>🏠 HMS</h1>
   <p id="headerSub">Hostel Management System</p>
 </div>
 
-<!-- SCREEN: LOGIN -->
-<div id="loginScreen" class="screen active" style="padding-top:30px">
-  <div style="text-align:center; margin-bottom:30px">
+<!-- LOGIN -->
+<div id="loginScreen" class="screen active">
+  <div style="text-align:center;padding:30px 0 20px">
     <div style="font-size:64px">🏠</div>
-    <h2 style="font-size:24px; margin:10px 0 4px">Hostel Management</h2>
-    <p style="color:rgba(255,255,255,0.5); font-size:14px">System</p>
+    <h2 style="font-size:24px;margin:10px 0 4px">Hostel Management</h2>
+    <p style="color:rgba(255,255,255,0.5);font-size:14px">System</p>
   </div>
-
-  <div style="display:flex;gap:12px;margin-bottom:20px">
-    <button id="tabStudent" onclick="switchLoginTab('student')" style="flex:1;padding:14px;border-radius:14px;border:none;background:linear-gradient(90deg,#6366f1,#8b5cf6);color:#fff;font-size:15px;font-weight:800;cursor:pointer">🎓 Student</button>
-    <button id="tabAdmin" onclick="switchLoginTab('admin')" style="flex:1;padding:14px;border-radius:14px;border:2px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.05);color:#aaa;font-size:15px;font-weight:800;cursor:pointer">👨‍💼 Admin</button>
+  <div class="tab-row">
+    <button class="tab-btn active" id="tabS" onclick="showLoginTab('student')">🎓 Student</button>
+    <button class="tab-btn" id="tabA" onclick="showLoginTab('admin')">👨‍💼 Admin</button>
   </div>
-
-  <!-- Student Login -->
-  <div id="studentLoginForm">
+  <!-- Student -->
+  <div id="studentLoginDiv">
     <div class="card">
-      <div id="phoneStep">
-        <p style="font-size:13px; color:rgba(255,255,255,0.6); margin-bottom:12px">Apna phone number daalo</p>
-        <input type="tel" id="phoneInput" placeholder="+91 98765 43210" maxlength="13">
+      <div id="phoneDiv">
+        <p style="font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:12px">Apna phone number daalo</p>
+        <input type="tel" id="phoneInput" placeholder="+91 98765 43210">
         <div id="recaptcha-container"></div>
-        <div id="loginError" class="error" style="display:none"></div>
+        <p id="phoneErr" class="msg-error" style="display:none"></p>
         <button class="btn btn-primary" onclick="sendOTP()">📱 OTP Bhejo</button>
       </div>
-      <div id="otpStep" style="display:none">
-        <p style="font-size:13px; color:rgba(255,255,255,0.6); margin-bottom:16px; text-align:center">OTP daalo jo aaya hai</p>
-        <div class="otp-box">
-          <input type="number" class="otp-input" maxlength="1" oninput="otpMove(this,0)">
-          <input type="number" class="otp-input" maxlength="1" oninput="otpMove(this,1)">
-          <input type="number" class="otp-input" maxlength="1" oninput="otpMove(this,2)">
-          <input type="number" class="otp-input" maxlength="1" oninput="otpMove(this,3)">
-          <input type="number" class="otp-input" maxlength="1" oninput="otpMove(this,4)">
-          <input type="number" class="otp-input" maxlength="1" oninput="otpMove(this,5)">
+      <div id="otpDiv" style="display:none">
+        <p style="font-size:13px;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:16px">OTP daalo</p>
+        <div class="otp-row">
+          <input type="tel" maxlength="1" class="otp-i" id="o0" oninput="otpNext(0)">
+          <input type="tel" maxlength="1" class="otp-i" id="o1" oninput="otpNext(1)">
+          <input type="tel" maxlength="1" class="otp-i" id="o2" oninput="otpNext(2)">
+          <input type="tel" maxlength="1" class="otp-i" id="o3" oninput="otpNext(3)">
+          <input type="tel" maxlength="1" class="otp-i" id="o4" oninput="otpNext(4)">
+          <input type="tel" maxlength="1" class="otp-i" id="o5" oninput="otpNext(5)">
         </div>
-        <div id="otpError" class="error" style="display:none"></div>
+        <p id="otpErr" class="msg-error" style="display:none"></p>
         <button class="btn btn-primary" onclick="verifyOTP()">✅ Verify Karo</button>
-        <button class="btn btn-sm" style="background:none;border:none;color:#aaa;margin-top:8px;width:100%" onclick="backToPhone()">← Wapas Jao</button>
+        <button class="btn btn-gray" onclick="backPhone()" style="font-size:13px;padding:10px">← Wapas</button>
       </div>
     </div>
   </div>
-
-  <!-- Admin Login -->
-  <div id="adminLoginForm" style="display:none">
+  <!-- Admin -->
+  <div id="adminLoginDiv" style="display:none">
     <div class="card">
       <input type="email" id="adminEmail" placeholder="Admin Email">
-      <input type="password" id="adminPassword" placeholder="Password">
-      <div id="adminError" class="error" style="display:none"></div>
+      <input type="password" id="adminPass" placeholder="Password">
+      <p id="adminErr" class="msg-error" style="display:none"></p>
       <button class="btn btn-primary" onclick="adminLogin()">🔐 Login Karo</button>
     </div>
   </div>
 </div>
 
-<!-- SCREEN: STUDENT REGISTRATION -->
+<!-- REGISTRATION -->
 <div id="regScreen" class="screen">
   <div class="card" style="margin-top:20px">
-    <h3 style="margin-bottom:16px; color:#818cf8">📝 Pehli baar registration</h3>
-    <input type="text" id="regName" placeholder="Apna poora naam">
+    <h3 style="margin-bottom:16px;color:#818cf8">📝 Pehli baar registration</h3>
+    <input type="text" id="regName" placeholder="Poora naam">
     <input type="text" id="regRoll" placeholder="Roll Number">
-    <p style="font-size:13px; color:rgba(255,255,255,0.6); margin-bottom:8px">Hostel Type:</p>
-    <div class="hostel-type">
-      <button class="hostel-btn active" id="boysBtn" onclick="selectHostel('boys')">👨 Boys</button>
-      <button class="hostel-btn" id="girlsBtn" onclick="selectHostel('girls')">👩 Girls</button>
+    <div class="hostel-row">
+      <button class="hostel-btn active" id="hB" onclick="selHostel('boys')">👨 Boys</button>
+      <button class="hostel-btn" id="hG" onclick="selHostel('girls')">👩 Girls</button>
     </div>
     <input type="text" id="regRoom" placeholder="Room Number">
-    <div id="regError" class="error" style="display:none"></div>
-    <button class="btn btn-primary" onclick="registerStudent()">✅ Register Karo</button>
+    <p id="regErr" class="msg-error" style="display:none"></p>
+    <button class="btn btn-primary" onclick="doRegister()">✅ Register Karo</button>
   </div>
 </div>
 
-<!-- SCREEN: STUDENT DASHBOARD -->
-<div id="studentScreen" class="screen pb80">
-  <div style="padding:16px 0 8px">
-    <div class="stats">
-      <div class="stat-card" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">
-        <p>📍 Status</p>
-        <p id="myStatus" style="font-size:18px">🏠 Andar</p>
-      </div>
-      <div class="stat-card" style="background:linear-gradient(135deg,#f97316,#ea580c)">
-        <p>🕐 Last Entry</p>
-        <p id="lastEntry" style="font-size:14px">--</p>
-      </div>
+<!-- STUDENT DASHBOARD -->
+<div id="studentScreen" class="screen">
+  <div class="stats">
+    <div class="stat-card" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">
+      <p>📍 Status</p>
+      <p id="myStatus">🏠 Andar</p>
     </div>
+    <div class="stat-card" style="background:linear-gradient(135deg,#f97316,#ea580c)">
+      <p>👤 Naam</p>
+      <p id="myName" style="font-size:16px">--</p>
+    </div>
+  </div>
 
-    <!-- Main Action -->
-    <div class="card" style="text-align:center">
-      <p style="font-size:13px; color:rgba(255,255,255,0.6); margin-bottom:16px" id="actionText">Bahar jaane ke liye selfie lo</p>
-      <div id="cameraContainer">
-        <video id="cameraPreview" autoplay playsinline></video>
-        <img id="capturedPhoto" alt="Selfie">
-      </div>
-      <div class="camera-btns">
-        <button class="btn btn-primary" id="cameraBtn" onclick="startCamera()">📸 Camera Kholo</button>
-        <button class="btn btn-success" id="captureBtn" onclick="capturePhoto()" style="display:none">✅ Khicho</button>
-        <button class="btn btn-orange" id="retakeBtn" onclick="retakePhoto()" style="display:none">🔄 Dobara</button>
-      </div>
-      <div id="entryMsg" class="success-msg" style="display:none"></div>
-      <button class="btn btn-danger mt12" id="exitBtn" onclick="markEntry('out')" style="display:none">🚪 Bahar Ja Raha Hoon</button>
-      <button class="btn btn-success mt12" id="enterBtn" onclick="markEntry('in')" style="display:none">🏠 Wapas Aa Gaya</button>
+  <div class="card" style="text-align:center">
+    <p id="actionTxt" style="font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:14px">Selfie lo</p>
+    <video id="camV" autoplay playsinline></video>
+    <img id="camImg" class="preview-img" alt="">
+    <div class="cam-row">
+      <button class="btn btn-primary" id="openCamBtn" onclick="openCam('main')" style="font-size:13px">📸 Camera</button>
+      <button class="btn btn-success" id="snapBtn" onclick="snapPhoto('main')" style="display:none;font-size:13px">✅ Khicho</button>
+      <button class="btn btn-orange" id="retakeBtn" onclick="retake('main')" style="display:none;font-size:13px">🔄 Dobara</button>
     </div>
+    <p id="entryMsg" class="msg-success" style="display:none"></p>
+    <button class="btn btn-danger" id="exitBtn" onclick="doEntry('out')" style="display:none">🚪 Bahar Ja Raha Hoon</button>
+    <button class="btn btn-success" id="enterBtn" onclick="doEntry('in')" style="display:none">🏠 Wapas Aa Gaya</button>
+  </div>
 
-    <!-- Visitor Section -->
-    <div class="card">
-      <h4 style="margin-bottom:12px; color:#fdba74">👥 Visitor Entry</h4>
-      <div id="visitorForm">
-        <input type="text" id="visitorName" placeholder="Visitor ka naam">
-        <input type="tel" id="visitorPhone" placeholder="Visitor ka phone">
-        <input type="text" id="visitorReason" placeholder="Kis kaam se aaya?">
-        <p style="font-size:12px; color:rgba(255,255,255,0.5); margin-bottom:8px">⚠️ Dono saath selfie zaroori hai!</p>
-        <div id="visitorCameraContainer">
-          <video id="visitorCameraPreview" autoplay playsinline style="width:100%;border-radius:16px;background:#000;display:none"></video>
-          <img id="visitorCapturedPhoto" style="width:100%;border-radius:16px;display:none" alt="Visitor Selfie">
-        </div>
-        <div style="display:flex;gap:8px;margin-bottom:12px">
-          <button class="btn btn-primary btn-sm" onclick="startVisitorCamera()">📸 Saath Selfie Lo</button>
-          <button class="btn btn-success btn-sm" id="visitorCaptureBtn" onclick="captureVisitorPhoto()" style="display:none">✅ Khicho</button>
-          <button class="btn btn-orange btn-sm" id="visitorRetakeBtn" onclick="retakeVisitorPhoto()" style="display:none">🔄 Dobara</button>
-        </div>
-        <div id="visitorMsg" class="success-msg" style="display:none"></div>
-        <button class="btn btn-orange" onclick="addVisitor()">➕ Visitor Add Karo</button>
-      </div>
+  <div class="card">
+    <h4 style="margin-bottom:12px;color:#fdba74">👥 Visitor Entry</h4>
+    <input type="text" id="vName" placeholder="Visitor ka naam">
+    <input type="tel" id="vPhone" placeholder="Visitor ka phone">
+    <input type="text" id="vReason" placeholder="Kis kaam se aaya?">
+    <p style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:8px">⚠️ Dono saath selfie zaroori!</p>
+    <video id="vCamV" autoplay playsinline></video>
+    <img id="vCamImg" class="preview-img" alt="">
+    <div class="cam-row">
+      <button class="btn btn-primary" onclick="openCam('visitor')" style="font-size:13px">📸 Saath Selfie</button>
+      <button class="btn btn-success" id="vSnapBtn" onclick="snapPhoto('visitor')" style="display:none;font-size:13px">✅ Khicho</button>
+      <button class="btn btn-orange" id="vRetakeBtn" onclick="retake('visitor')" style="display:none;font-size:13px">🔄 Dobara</button>
     </div>
+    <p id="visitorMsg" class="msg-success" style="display:none"></p>
+    <button class="btn btn-orange" onclick="addVisitor()">➕ Visitor Add Karo</button>
+  </div>
 
-    <!-- My History -->
-    <div class="card">
-      <h4 style="margin-bottom:12px">📋 Meri History</h4>
-      <div id="myHistory"><div class="loading">Loading...</div></div>
-    </div>
+  <div class="card">
+    <h4 style="margin-bottom:12px">📋 Meri History</h4>
+    <div id="myHistory"><p style="color:rgba(255,255,255,0.5);font-size:13px">Loading...</p></div>
   </div>
 </div>
 
-<!-- SCREEN: ADMIN DASHBOARD -->
-<div id="adminScreen" class="screen pb80">
-  <div style="padding:16px 0 8px">
-    <!-- Stats -->
-    <div class="stats">
-      <div class="stat-card" style="background:linear-gradient(135deg,#ef4444,#dc2626)">
-        <p>🚪 Bahar</p>
-        <p id="totalOut">0</p>
-      </div>
-      <div class="stat-card" style="background:linear-gradient(135deg,#22c55e,#16a34a)">
-        <p>🏠 Andar</p>
-        <p id="totalIn">0</p>
-      </div>
+<!-- ADMIN DASHBOARD -->
+<div id="adminScreen" class="screen">
+  <div class="stats">
+    <div class="stat-card" style="background:linear-gradient(135deg,#ef4444,#dc2626)">
+      <p>🚪 Bahar</p><p id="cntOut">0</p>
     </div>
-
-    <!-- Filter -->
-    <div class="card">
-      <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
-        <button class="btn btn-sm btn-primary" onclick="filterEntries('all')">Sab</button>
-        <button class="btn btn-sm" style="background:rgba(239,68,68,0.3);color:#fca5a5;border:none;border-radius:10px;padding:10px 16px;font-size:13px;cursor:pointer" onclick="filterEntries('out')">🚪 Bahar</button>
-        <button class="btn btn-sm" style="background:rgba(34,197,94,0.3);color:#86efac;border:none;border-radius:10px;padding:10px 16px;font-size:13px;cursor:pointer" onclick="filterEntries('in')">🏠 Andar</button>
-        <button class="btn btn-sm" style="background:rgba(249,115,22,0.3);color:#fdba74;border:none;border-radius:10px;padding:10px 16px;font-size:13px;cursor:pointer" onclick="filterEntries('visitor')">👥 Visitor</button>
-      </div>
-      <div id="adminEntries"><div class="loading">Loading...</div></div>
-    </div>
-
-    <!-- Add Student -->
-    <div class="card">
-      <h4 style="margin-bottom:12px; color:#818cf8">➕ Naya Student Add Karo</h4>
-      <input type="text" id="newStudentName" placeholder="Naam">
-      <input type="text" id="newStudentRoll" placeholder="Roll Number">
-      <input type="tel" id="newStudentPhone" placeholder="Phone (+91...)">
-      <div class="hostel-type">
-        <button class="hostel-btn active" id="newBoysBtn" onclick="selectNewHostel('boys')">👨 Boys</button>
-        <button class="hostel-btn" id="newGirlsBtn" onclick="selectNewHostel('girls')">👩 Girls</button>
-      </div>
-      <input type="text" id="newStudentRoom" placeholder="Room Number">
-      <div id="addStudentMsg" class="success-msg" style="display:none"></div>
-      <button class="btn btn-primary" onclick="addStudent()">✅ Student Add Karo</button>
-    </div>
-
-    <!-- Students List -->
-    <div class="card">
-      <h4 style="margin-bottom:12px">👥 Registered Students</h4>
-      <div id="studentsList"><div class="loading">Loading...</div></div>
+    <div class="stat-card" style="background:linear-gradient(135deg,#22c55e,#16a34a)">
+      <p>🏠 Andar</p><p id="cntIn">0</p>
     </div>
   </div>
+
+  <div class="card">
+    <div class="filter-row">
+      <button class="filter-btn" style="background:rgba(99,102,241,0.3);color:#a5b4fc" onclick="filterE('all')">Sab</button>
+      <button class="filter-btn" style="background:rgba(239,68,68,0.3);color:#fca5a5" onclick="filterE('out')">🚪 Bahar</button>
+      <button class="filter-btn" style="background:rgba(34,197,94,0.3);color:#86efac" onclick="filterE('in')">🏠 Andar</button>
+      <button class="filter-btn" style="background:rgba(249,115,22,0.3);color:#fdba74" onclick="filterE('visitor')">👥 Visitor</button>
+    </div>
+    <div id="adminEntries"><p style="color:rgba(255,255,255,0.5);font-size:13px">Loading...</p></div>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-bottom:12px;color:#818cf8">➕ Naya Student Add Karo</h4>
+    <input type="text" id="nName" placeholder="Naam">
+    <input type="text" id="nRoll" placeholder="Roll Number">
+    <input type="tel" id="nPhone" placeholder="Phone (+91...)">
+    <div class="hostel-row">
+      <button class="hostel-btn active" id="nHB" onclick="selNewHostel('boys')">👨 Boys</button>
+      <button class="hostel-btn" id="nHG" onclick="selNewHostel('girls')">👩 Girls</button>
+    </div>
+    <input type="text" id="nRoom" placeholder="Room Number">
+    <p id="addMsg" class="msg-success" style="display:none"></p>
+    <button class="btn btn-primary" onclick="addStudent()">✅ Add Karo</button>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-bottom:12px">👥 Students List</h4>
+    <div id="studentsList"><p style="color:rgba(255,255,255,0.5);font-size:13px">Loading...</p></div>
+  </div>
+
+  <button class="btn btn-gray" onclick="doLogout()">🚪 Logout</button>
 </div>
 
-<!-- Bottom Nav (shown after login) -->
-<div class="bottom-nav" id="bottomNav" style="display:none">
-  <button class="nav-btn active" id="nav1" onclick="showTab(1)">
-    <span>🏠</span><span>Home</span>
-  </button>
-  <button class="nav-btn" id="nav2" onclick="showTab(2)">
-    <span>📋</span><span>History</span>
-  </button>
-  <button class="nav-btn" id="nav3" onclick="showTab(3)">
-    <span>⚙️</span><span>Settings</span>
-  </button>
-</div>
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 
-<!-- Firebase -->
-<script type="module" crossorigin="anonymous">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc, addDoc, collection, query, where, orderBy, onSnapshot, updateDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import { getStorage, ref, uploadString, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
-
-const firebaseConfig = {
+<script>
+// Firebase init
+firebase.initializeApp({
   apiKey: "AIzaSyBhzhuUr2zVd7cPa7bCk5awlfUWxq4YKFg",
   authDomain: "hostel--entry.firebaseapp.com",
   projectId: "hostel--entry",
   storageBucket: "hostel--entry.firebasestorage.app",
   messagingSenderId: "88795447664",
-  appId: "1:88795447664:web:6c895ff9343e3c8f188fb5",
-  measurementId: "G-FJ5VJ5KXFE"
-};
+  appId: "1:88795447664:web:6c895ff9343e3c8f188fb5"
+});
+const auth = firebase.auth();
+const db = firebase.firestore();
+const storage = firebase.storage();
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const storage = getStorage(app);
-
-// Admin emails
 const ADMIN_EMAILS = ["potliya198@gmail.com"];
+let curUser = null, stuData = null, confirmRes = null;
+let photoMain = null, photoVisitor = null;
+let selH = 'boys', selNH = 'boys', curFilter = 'all';
+let streamMain = null, streamVisitor = null;
 
-let currentUser = null;
-let studentData = null;
-let confirmationResult = null;
-let photoData = null;
-let visitorPhotoData = null;
-let selectedHostel = 'boys';
-let newSelectedHostel = 'boys';
-let currentStream = null;
-let currentFilter = 'all';
-
-window.selectedHostel = 'boys';
-window.newSelectedHostel = 'boys';
-
-// Auth state
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    currentUser = user;
-    const isAdmin = ADMIN_EMAILS.includes(user.email);
-    if (isAdmin) {
-      showAdminDashboard();
+// Auth
+auth.onAuthStateChanged(async u => {
+  if (u) {
+    curUser = u;
+    if (ADMIN_EMAILS.includes(u.email)) {
+      showAdminDash();
     } else {
-      const sDoc = await getDoc(doc(db, "students", user.uid));
-      if (sDoc.exists()) {
-        studentData = sDoc.data();
-        showStudentDashboard();
-      } else {
-        showScreen('regScreen');
-      }
+      const d = await db.collection('students').doc(u.uid).get();
+      if (d.exists) { stuData = d.data(); showStudentDash(); }
+      else { showScr('regScreen'); }
     }
   } else {
-    showScreen('loginScreen');
-    document.getElementById('bottomNav').style.display = 'none';
+    showScr('loginScreen');
   }
 });
 
-// Show screen
-window.showScreen = (id) => {
+function showScr(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-};
+}
 
 // Login tabs
-window.switchLoginTab = (type) => {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById('studentLoginForm').style.display = type === 'student' ? 'block' : 'none';
-  document.getElementById('adminLoginForm').style.display = type === 'admin' ? 'block' : 'none';
-};
-
-// Hostel select
-window.selectHostel = (type) => {
-  selectedHostel = type;
-  document.getElementById('boysBtn').classList.toggle('active', type === 'boys');
-  document.getElementById('girlsBtn').classList.toggle('active', type === 'girls');
-};
-window.selectNewHostel = (type) => {
-  newSelectedHostel = type;
-  document.getElementById('newBoysBtn').classList.toggle('active', type === 'boys');
-  document.getElementById('newGirlsBtn').classList.toggle('active', type === 'girls');
-};
+function showLoginTab(t) {
+  document.getElementById('tabS').classList.toggle('active', t==='student');
+  document.getElementById('tabA').classList.toggle('active', t==='admin');
+  document.getElementById('studentLoginDiv').style.display = t==='student' ? 'block' : 'none';
+  document.getElementById('adminLoginDiv').style.display = t==='admin' ? 'block' : 'none';
+}
 
 // OTP
-window.sendOTP = async () => {
+function sendOTP() {
   const phone = document.getElementById('phoneInput').value.trim();
-  if (!phone || phone.length < 10) { showError('loginError', 'Sahi phone number daalo!'); return; }
-  try {
-    if (!window.recaptchaVerifier) {
-      window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', { size: 'invisible' });
-    }
-    confirmationResult = await signInWithPhoneNumber(auth, phone, window.recaptchaVerifier);
-    document.getElementById('phoneStep').style.display = 'none';
-    document.getElementById('o
+  if (!phone || phone.length < 10) { showMsg('phoneErr', 'Sahi phone daalo!', true); return; }
+  if (!window.recapV) {
+    window.recapV = new firebase.auth.RecaptchaVerifier('recaptcha-container', {size:'invisible'});
+  }
+  auth.signInWithPhoneNumber(phone, window.recapV)
+    .then(r => { confirmRes = r; document.getElementById('phoneDiv').style.display='none'; document.getElementById('otpDiv').style.display='block'; })
+    .catch(e => showMsg('phoneErr', 'Error: ' + e.message, true));
+}
+
+function otpNext(i) {
+  const v = document.getElementById('o'+i).value;
+  if (v && i < 5) document.getElementById('o'+(i+1)).focus();
+}
+
+function verifyOTP() {
+  let otp = '';
+  for(let i=0;i<6;i++) otp += document.getElementById('o'+i).value;
+  if (otp.length < 6) { showMsg('otpErr','6 digit OTP daalo!',true); return; }
+  confirmRes.confirm(otp).catch(e => showMsg('otpErr','Galat OTP!',true));
+}
+
+function backPhone() {
+  document.getElementById('phoneDiv').style.display='block';
+  document.getElementById('otpDiv').style.display='none';
+}
+
+// Admin login
+function adminLogin() {
+  const e = document.getElementById('adminEmail').value;
+  const p = document.getElementById('adminPass').value;
+  auth.signInWithEmailAndPassword(e,p)
+    .catch(() => auth.createUserWithEmailAndPassword(e,p)
+    .catch(err => showMsg('adminErr','Error: '+err.message,true)));
+}
+
+// Hostel select
+function selHostel(t) {
+  selH=t;
+  document.getElementById('hB').classList.toggle('active',t==='boys');
+  document.getElementById('hG').classList.toggle('active',t==='girls');
+}
+function selNewHostel(t) {
+  selNH=t;
+  document.getElementById('nHB').classList.toggle('active',t==='boys');
+  document.getElementById('nHG').classList.toggle('active',t==='girls');
+}
+
+// Register
+async function doRegister() {
+  const name=document.getElementById('regName').value.trim();
+  const roll=document.getElementById('regRoll').value.trim();
+  const room=document.getElementById('regRoom').value.trim();
+  if(!name||!roll||!room){showMsg('regErr','Sab bharo!',true);return;}
+  const phone=curUser.phoneNumber;
+  const snap=await db.collection('preRegistered').where('phone','==',phone).get();
+  if(snap.empty){showMsg('regErr','Number registered nahi! Admin se baat karo.',true);return;}
+  const data={uid:curUser.uid,name,roll,phone,hostel:selH,room,status:'in',createdAt:new Date().toISOString()};
+  await db.collection('students').doc(curUser.uid).set(data);
+  stuData=data; showStudentDash();
+}
+
+// Student Dashboard
+function showStudentDash() {
+  showScr('studentScreen');
+  document.getElementById('myName').textContent = stuData.name.split(' ')[0];
+  updateStatus();
+  loadHistory();
+}
+
+function updateStatus() {
+  const out = stuData.status==='out';
+  document.getElementById('myStatus').textContent = out ? '🚪 Bahar' : '🏠 Andar';
+  document.getElementById('actionTxt').textContent = out ? 'Wapas aane ke liye selfie lo' : 'Bahar jaane ke liye selfie lo';
+  document.getElementById('exitBtn').style.display = !out ? 'block' : 'none';
+  document.getElementById('enterBtn').style.display = out ? 'block' : 'none';
+}
+
+// Camera
+function openCam(t) {
+  const vid = t==='main' ? document.getElementById('camV') : document.getElementById('vCamV');
+  navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false}).then(s => {
+    if(t==='main'){streamMain=s;} else {streamVisitor=s;}
+    vid.srcObject=s; vid.style.display='block';
+    if(t==='main'){document.getElementById('snapBtn').style.display='block';}
+    else{document.getElementById('vSnapBtn').style.display='block';}
+  }).catch(()=>alert('Camera permission do!'));
+}
+
+function snapPhoto(t) {
+  const vid = t==='main' ? document.getElementById('camV') : document.getElementById('vCamV');
+  const img = t==='main' ? document.getElementById('camImg') : document.getElementById('vCamImg');
+  const canvas=document.createElement('canvas');
+  canvas.width=vid.videoWidth; canvas.height=vid.videoHeight;
+  canvas.getContext('2d').drawImage(vid,0,0);
+  const data=canvas.toDataURL('image/jpeg',0.7);
+  if(t==='main'){photoMain=data;} else {photoVisitor=data;}
+  img.src=data; img.style.display='block'; vid.style.display='none';
+  if(t==='main'){
+    streamMain && streamMain.getTracks().forEach(tr=>tr.stop());
+    document.getElementById('snapBtn').style.display='none';
+    document.getElementById('retakeBtn').style.display='block';
+    document.getElementById('exitBtn').style.display = stuData.status!=='out' ? 'block' : 'none';
+    document.getElementById('enterBtn').style.display = stuData.status==='out' ? 'block' : 'none';
+  } else {
+    streamVisitor && streamVisitor.getTracks().forEach(tr=>tr.stop());
+    document.getElementById('vSnapBtn').style.display='none';
+    document.getElementById('vRetakeBtn').style.display='block';
+  }
+}
+
+function retake(t) {
+  if(t==='main'){
+    photoMain=null;
+    document.getElementById('camImg').style.display='none';
+    document.getElementById('retakeBtn').style.display='none';
+    document.getElementById('exitBtn').style.display='none';
+    document.getElementById('enterBtn').style.display='none';
+  } else {
+    photoVisitor=null;
+  
