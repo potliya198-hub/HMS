@@ -3,395 +3,387 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏠 HMS - Hostel Management System</title>
+<title>HMS - Hostel Management System</title>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); min-height: 100vh; color: #fff; }
-.screen { display: none; padding: 20px 16px 80px; max-width: 480px; margin: 0 auto; }
-.screen.active { display: block; }
-.header { background: linear-gradient(90deg, #6366f1, #8b5cf6); padding: 20px; text-align: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px rgba(99,102,241,0.4); }
-.header h1 { font-size: 22px; font-weight: 900; }
-.header p { font-size: 12px; opacity: 0.8; margin-top: 4px; }
-.card { background: rgba(255,255,255,0.08); border-radius: 20px; padding: 20px; margin-bottom: 16px; border: 1px solid rgba(255,255,255,0.1); }
-input { width: 100%; padding: 14px 16px; border-radius: 14px; border: 2px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.08); color: #fff; font-size: 15px; outline: none; margin-bottom: 12px; display: block; }
-input::placeholder { color: rgba(255,255,255,0.4); }
-input:focus { border-color: #6366f1; }
-.btn { width: 100%; padding: 15px; border-radius: 16px; border: none; font-size: 15px; font-weight: 800; cursor: pointer; margin-bottom: 10px; display: block; }
-.btn-primary { background: linear-gradient(90deg, #6366f1, #8b5cf6); color: #fff; }
-.btn-success { background: linear-gradient(90deg, #22c55e, #16a34a); color: #fff; }
-.btn-danger { background: linear-gradient(90deg, #ef4444, #dc2626); color: #fff; }
-.btn-orange { background: linear-gradient(90deg, #f97316, #ea580c); color: #fff; }
-.btn-gray { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
-.tab-row { display: flex; gap: 10px; margin-bottom: 20px; }
-.tab-btn { flex: 1; padding: 14px; border-radius: 14px; border: 2px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: #aaa; font-size: 14px; font-weight: 800; cursor: pointer; }
-.tab-btn.active { background: linear-gradient(90deg, #6366f1, #8b5cf6); color: #fff; border-color: transparent; }
-.hostel-row { display: flex; gap: 10px; margin-bottom: 12px; }
-.hostel-btn { flex: 1; padding: 12px; border-radius: 14px; border: 2px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: #aaa; font-weight: 700; font-size: 14px; cursor: pointer; }
-.hostel-btn.active { border-color: #6366f1; background: rgba(99,102,241,0.2); color: #818cf8; }
-.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
-.stat-card { border-radius: 18px; padding: 16px; text-align: center; }
-.stat-card p:first-child { font-size: 11px; opacity: 0.8; margin-bottom: 6px; }
-.stat-card p:last-child { font-size: 26px; font-weight: 900; }
-.entry-card { background: rgba(255,255,255,0.06); border-radius: 16px; padding: 14px; margin-bottom: 10px; display: flex; gap: 12px; align-items: center; border-left: 4px solid #6366f1; }
-.entry-avatar { width: 56px; height: 56px; border-radius: 12px; flex-shrink: 0; overflow: hidden; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 24px; }
-.entry-avatar img { width: 100%; height: 100%; object-fit: cover; }
-.entry-info h4 { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
-.entry-info p { font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 2px; }
-.badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; margin-right: 4px; }
-.badge-out { background: rgba(239,68,68,0.2); color: #fca5a5; }
-.badge-in { background: rgba(34,197,94,0.2); color: #86efac; }
-.badge-visitor { background: rgba(249,115,22,0.2); color: #fdba74; }
-.otp-row { display: flex; gap: 8px; justify-content: center; margin-bottom: 16px; }
-.otp-row input { width: 48px; height: 56px; text-align: center; font-size: 22px; font-weight: 800; padding: 0; border-radius: 12px; margin: 0; }
-.msg-success { color: #86efac; font-size: 13px; text-align: center; margin-bottom: 10px; }
-.msg-error { color: #fca5a5; font-size: 13px; text-align: center; margin-bottom: 10px; }
-video, .preview-img { width: 100%; border-radius: 16px; margin-bottom: 10px; background: #000; display: none; }
-.cam-row { display: flex; gap: 8px; margin-bottom: 10px; }
-.cam-row .btn { margin: 0; }
-.filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
-.filter-btn { padding: 8px 14px; border-radius: 10px; border: none; font-size: 12px; font-weight: 700; cursor: pointer; }
-#recaptcha-container { margin-bottom: 10px; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);min-height:100vh;color:#fff}
+.screen{display:none;padding:16px 16px 80px;max-width:480px;margin:0 auto}
+.screen.active{display:block}
+.header{background:linear-gradient(90deg,#6366f1,#8b5cf6);padding:18px 20px;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(99,102,241,0.4)}
+.header h1{font-size:22px;font-weight:900}
+.header p{font-size:12px;opacity:.8;margin-top:3px}
+.card{background:rgba(255,255,255,.08);border-radius:20px;padding:18px;margin-bottom:14px;border:1px solid rgba(255,255,255,.1)}
+input[type=text],input[type=tel],input[type=email],input[type=password]{width:100%;padding:13px 15px;border-radius:12px;border:2px solid rgba(255,255,255,.15);background:rgba(255,255,255,.07);color:#fff;font-size:14px;outline:none;margin-bottom:10px;display:block}
+input:focus{border-color:#6366f1}
+input::placeholder{color:rgba(255,255,255,.35)}
+.btn{width:100%;padding:14px;border-radius:14px;border:none;font-size:14px;font-weight:800;cursor:pointer;margin-bottom:8px;display:block;transition:opacity .2s}
+.btn:active{opacity:.8}
+.bp{background:linear-gradient(90deg,#6366f1,#8b5cf6);color:#fff}
+.bs{background:linear-gradient(90deg,#22c55e,#16a34a);color:#fff}
+.bd{background:linear-gradient(90deg,#ef4444,#dc2626);color:#fff}
+.bo{background:linear-gradient(90deg,#f97316,#ea580c);color:#fff}
+.bg{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2)}
+.tab-row{display:flex;gap:8px;margin-bottom:16px}
+.tab-btn{flex:1;padding:13px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.05);color:#aaa;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s}
+.tab-btn.on{background:linear-gradient(90deg,#6366f1,#8b5cf6);color:#fff;border-color:transparent}
+.h-row{display:flex;gap:8px;margin-bottom:10px}
+.hb{flex:1;padding:11px;border-radius:12px;border:2px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:#aaa;font-weight:700;font-size:13px;cursor:pointer;transition:all .2s}
+.hb.on{border-color:#6366f1;background:rgba(99,102,241,.2);color:#818cf8}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.sc{border-radius:16px;padding:14px;text-align:center}
+.sc p:first-child{font-size:11px;opacity:.8;margin-bottom:5px}
+.sc p:last-child{font-size:22px;font-weight:900}
+.ec{background:rgba(255,255,255,.06);border-radius:14px;padding:13px;margin-bottom:8px;display:flex;gap:10px;align-items:center;border-left:4px solid #6366f1}
+.ea{width:52px;height:52px;border-radius:10px;flex-shrink:0;overflow:hidden;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:22px}
+.ea img{width:100%;height:100%;object-fit:cover}
+.ei h4{font-size:13px;font-weight:700;margin-bottom:2px}
+.ei p{font-size:11px;color:rgba(255,255,255,.6);margin-bottom:2px}
+.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;margin-right:3px}
+.bout{background:rgba(239,68,68,.2);color:#fca5a5}
+.bin{background:rgba(34,197,94,.2);color:#86efac}
+.bvis{background:rgba(249,115,22,.2);color:#fdba74}
+.otp-row{display:flex;gap:6px;justify-content:center;margin-bottom:14px}
+.otp-row input{width:44px;height:52px;text-align:center;font-size:20px;font-weight:800;padding:0;border-radius:10px;margin:0}
+.ok{color:#86efac;font-size:13px;text-align:center;margin-bottom:8px;display:none}
+.err{color:#fca5a5;font-size:13px;text-align:center;margin-bottom:8px;display:none}
+video{width:100%;border-radius:14px;background:#000;display:none;margin-bottom:8px}
+.pimg{width:100%;border-radius:14px;display:none;margin-bottom:8px}
+.cam-row{display:flex;gap:8px;margin-bottom:8px}
+.cam-row .btn{margin:0;flex:1;padding:11px;font-size:12px}
+.fr{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.fb{padding:7px 12px;border-radius:8px;border:none;font-size:11px;font-weight:700;cursor:pointer}
 </style>
 </head>
 <body>
 
 <div class="header">
   <h1>🏠 HMS</h1>
-  <p id="headerSub">Hostel Management System</p>
+  <p id="hSub">Hostel Management System</p>
 </div>
 
-<!-- LOGIN -->
+<!-- LOGIN SCREEN -->
 <div id="loginScreen" class="screen active">
-  <div style="text-align:center;padding:30px 0 20px">
-    <div style="font-size:64px">🏠</div>
-    <h2 style="font-size:24px;margin:10px 0 4px">Hostel Management</h2>
-    <p style="color:rgba(255,255,255,0.5);font-size:14px">System</p>
+  <div style="text-align:center;padding:28px 0 18px">
+    <div style="font-size:60px">🏠</div>
+    <h2 style="font-size:22px;margin:8px 0 4px">Hostel Management</h2>
+    <p style="color:rgba(255,255,255,.5);font-size:13px">System</p>
   </div>
+
   <div class="tab-row">
-    <button class="tab-btn active" id="tabS" onclick="showLoginTab('student')">🎓 Student</button>
-    <button class="tab-btn" id="tabA" onclick="showLoginTab('admin')">👨‍💼 Admin</button>
+    <button class="tab-btn on" id="tS" onclick="loginTab('student')">🎓 Student</button>
+    <button class="tab-btn" id="tA" onclick="loginTab('admin')">👨‍💼 Admin</button>
   </div>
-  <!-- Student -->
-  <div id="studentLoginDiv">
+
+  <div id="stuDiv">
     <div class="card">
-      <div id="phoneDiv">
-        <p style="font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:12px">Apna phone number daalo</p>
-        <input type="tel" id="phoneInput" placeholder="+91 98765 43210">
+      <div id="ph1">
+        <p style="font-size:13px;color:rgba(255,255,255,.6);margin-bottom:10px">Apna phone number daalo (+91...)</p>
+        <input type="tel" id="phInp" placeholder="+91 9876543210">
         <div id="recaptcha-container"></div>
-        <p id="phoneErr" class="msg-error" style="display:none"></p>
-        <button class="btn btn-primary" onclick="sendOTP()">📱 OTP Bhejo</button>
+        <p id="phErr" class="err"></p>
+        <button class="btn bp" onclick="sendOTP()">📱 OTP Bhejo</button>
       </div>
-      <div id="otpDiv" style="display:none">
-        <p style="font-size:13px;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:16px">OTP daalo</p>
+      <div id="ph2" style="display:none">
+        <p style="font-size:13px;color:rgba(255,255,255,.6);text-align:center;margin-bottom:14px">OTP daalo jo aaya</p>
         <div class="otp-row">
-          <input type="tel" maxlength="1" class="otp-i" id="o0" oninput="otpNext(0)">
-          <input type="tel" maxlength="1" class="otp-i" id="o1" oninput="otpNext(1)">
-          <input type="tel" maxlength="1" class="otp-i" id="o2" oninput="otpNext(2)">
-          <input type="tel" maxlength="1" class="otp-i" id="o3" oninput="otpNext(3)">
-          <input type="tel" maxlength="1" class="otp-i" id="o4" oninput="otpNext(4)">
-          <input type="tel" maxlength="1" class="otp-i" id="o5" oninput="otpNext(5)">
+          <input type="tel" maxlength="1" id="o0" oninput="on(0)">
+          <input type="tel" maxlength="1" id="o1" oninput="on(1)">
+          <input type="tel" maxlength="1" id="o2" oninput="on(2)">
+          <input type="tel" maxlength="1" id="o3" oninput="on(3)">
+          <input type="tel" maxlength="1" id="o4" oninput="on(4)">
+          <input type="tel" maxlength="1" id="o5" oninput="on(5)">
         </div>
-        <p id="otpErr" class="msg-error" style="display:none"></p>
-        <button class="btn btn-primary" onclick="verifyOTP()">✅ Verify Karo</button>
-        <button class="btn btn-gray" onclick="backPhone()" style="font-size:13px;padding:10px">← Wapas</button>
+        <p id="otpErr" class="err"></p>
+        <button class="btn bp" onclick="verOTP()">✅ Verify Karo</button>
+        <button class="btn bg" style="font-size:13px;padding:10px" onclick="back1()">← Wapas</button>
       </div>
     </div>
   </div>
-  <!-- Admin -->
-  <div id="adminLoginDiv" style="display:none">
+
+  <div id="admDiv" style="display:none">
     <div class="card">
-      <input type="email" id="adminEmail" placeholder="Admin Email">
-      <input type="password" id="adminPass" placeholder="Password">
-      <p id="adminErr" class="msg-error" style="display:none"></p>
-      <button class="btn btn-primary" onclick="adminLogin()">🔐 Login Karo</button>
+      <input type="email" id="aEmail" placeholder="Admin Email">
+      <input type="password" id="aPass" placeholder="Password">
+      <p id="aErr" class="err"></p>
+      <button class="btn bp" onclick="admLogin()">🔐 Login Karo</button>
     </div>
   </div>
 </div>
 
-<!-- REGISTRATION -->
+<!-- REGISTRATION SCREEN -->
 <div id="regScreen" class="screen">
   <div class="card" style="margin-top:20px">
-    <h3 style="margin-bottom:16px;color:#818cf8">📝 Pehli baar registration</h3>
-    <input type="text" id="regName" placeholder="Poora naam">
-    <input type="text" id="regRoll" placeholder="Roll Number">
-    <div class="hostel-row">
-      <button class="hostel-btn active" id="hB" onclick="selHostel('boys')">👨 Boys</button>
-      <button class="hostel-btn" id="hG" onclick="selHostel('girls')">👩 Girls</button>
+    <h3 style="margin-bottom:14px;color:#818cf8">📝 Pehli Baar Registration</h3>
+    <input type="text" id="rName" placeholder="Poora naam">
+    <input type="text" id="rRoll" placeholder="Roll Number">
+    <div class="h-row">
+      <button class="hb on" id="rHB" onclick="selH('boys','r')">👨 Boys</button>
+      <button class="hb" id="rHG" onclick="selH('girls','r')">👩 Girls</button>
     </div>
-    <input type="text" id="regRoom" placeholder="Room Number">
-    <p id="regErr" class="msg-error" style="display:none"></p>
-    <button class="btn btn-primary" onclick="doRegister()">✅ Register Karo</button>
+    <input type="text" id="rRoom" placeholder="Room Number">
+    <p id="rErr" class="err"></p>
+    <button class="btn bp" onclick="doReg()">✅ Register Karo</button>
   </div>
 </div>
 
-<!-- STUDENT DASHBOARD -->
-<div id="studentScreen" class="screen">
+<!-- STUDENT SCREEN -->
+<div id="stuScreen" class="screen">
   <div class="stats">
-    <div class="stat-card" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">
-      <p>📍 Status</p>
-      <p id="myStatus">🏠 Andar</p>
+    <div class="sc" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">
+      <p>📍 Status</p><p id="myStat">🏠 Andar</p>
     </div>
-    <div class="stat-card" style="background:linear-gradient(135deg,#f97316,#ea580c)">
-      <p>👤 Naam</p>
-      <p id="myName" style="font-size:16px">--</p>
+    <div class="sc" style="background:linear-gradient(135deg,#f97316,#ea580c)">
+      <p>👤 Student</p><p id="myNm" style="font-size:15px">--</p>
     </div>
   </div>
 
   <div class="card" style="text-align:center">
-    <p id="actionTxt" style="font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:14px">Selfie lo</p>
-    <video id="camV" autoplay playsinline></video>
-    <img id="camImg" class="preview-img" alt="">
+    <p id="actTxt" style="font-size:13px;color:rgba(255,255,255,.6);margin-bottom:12px">Selfie lo</p>
+    <video id="mV" autoplay playsinline></video>
+    <img id="mI" class="pimg">
     <div class="cam-row">
-      <button class="btn btn-primary" id="openCamBtn" onclick="openCam('main')" style="font-size:13px">📸 Camera</button>
-      <button class="btn btn-success" id="snapBtn" onclick="snapPhoto('main')" style="display:none;font-size:13px">✅ Khicho</button>
-      <button class="btn btn-orange" id="retakeBtn" onclick="retake('main')" style="display:none;font-size:13px">🔄 Dobara</button>
+      <button class="btn bp" id="mCOpen" onclick="openCam('m')">📸 Camera</button>
+      <button class="btn bs" id="mCSnap" onclick="snap('m')" style="display:none">✅ Khicho</button>
+      <button class="btn bo" id="mCRet" onclick="ret('m')" style="display:none">🔄 Dobara</button>
     </div>
-    <p id="entryMsg" class="msg-success" style="display:none"></p>
-    <button class="btn btn-danger" id="exitBtn" onclick="doEntry('out')" style="display:none">🚪 Bahar Ja Raha Hoon</button>
-    <button class="btn btn-success" id="enterBtn" onclick="doEntry('in')" style="display:none">🏠 Wapas Aa Gaya</button>
+    <p id="entMsg" class="ok"></p>
+    <button class="btn bd" id="outBtn" onclick="doEnt('out')" style="display:none">🚪 Bahar Ja Raha Hoon</button>
+    <button class="btn bs" id="inBtn" onclick="doEnt('in')" style="display:none">🏠 Wapas Aa Gaya</button>
   </div>
 
   <div class="card">
     <h4 style="margin-bottom:12px;color:#fdba74">👥 Visitor Entry</h4>
-    <input type="text" id="vName" placeholder="Visitor ka naam">
-    <input type="tel" id="vPhone" placeholder="Visitor ka phone">
-    <input type="text" id="vReason" placeholder="Kis kaam se aaya?">
-    <p style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:8px">⚠️ Dono saath selfie zaroori!</p>
-    <video id="vCamV" autoplay playsinline></video>
-    <img id="vCamImg" class="preview-img" alt="">
+    <input type="text" id="vNm" placeholder="Visitor ka naam">
+    <input type="tel" id="vPh" placeholder="Visitor ka phone">
+    <input type="text" id="vRs" placeholder="Kaam?">
+    <p style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:8px">⚠️ Dono saath selfie zaroori!</p>
+    <video id="vV" autoplay playsinline></video>
+    <img id="vI" class="pimg">
     <div class="cam-row">
-      <button class="btn btn-primary" onclick="openCam('visitor')" style="font-size:13px">📸 Saath Selfie</button>
-      <button class="btn btn-success" id="vSnapBtn" onclick="snapPhoto('visitor')" style="display:none;font-size:13px">✅ Khicho</button>
-      <button class="btn btn-orange" id="vRetakeBtn" onclick="retake('visitor')" style="display:none;font-size:13px">🔄 Dobara</button>
+      <button class="btn bp" onclick="openCam('v')">📸 Saath Selfie</button>
+      <button class="btn bs" id="vSnap" onclick="snap('v')" style="display:none">✅ Khicho</button>
+      <button class="btn bo" id="vRet" onclick="ret('v')" style="display:none">🔄 Dobara</button>
     </div>
-    <p id="visitorMsg" class="msg-success" style="display:none"></p>
-    <button class="btn btn-orange" onclick="addVisitor()">➕ Visitor Add Karo</button>
+    <p id="visMsg" class="ok"></p>
+    <button class="btn bo" onclick="addVis()">➕ Visitor Add Karo</button>
   </div>
 
   <div class="card">
-    <h4 style="margin-bottom:12px">📋 Meri History</h4>
-    <div id="myHistory"><p style="color:rgba(255,255,255,0.5);font-size:13px">Loading...</p></div>
+    <h4 style="margin-bottom:10px">📋 Meri History</h4>
+    <div id="myHist"><p style="font-size:13px;color:rgba(255,255,255,.5)">Loading...</p></div>
   </div>
 </div>
 
-<!-- ADMIN DASHBOARD -->
-<div id="adminScreen" class="screen">
+<!-- ADMIN SCREEN -->
+<div id="admScreen" class="screen">
   <div class="stats">
-    <div class="stat-card" style="background:linear-gradient(135deg,#ef4444,#dc2626)">
-      <p>🚪 Bahar</p><p id="cntOut">0</p>
+    <div class="sc" style="background:linear-gradient(135deg,#ef4444,#dc2626)">
+      <p>🚪 Bahar</p><p id="cOut">0</p>
     </div>
-    <div class="stat-card" style="background:linear-gradient(135deg,#22c55e,#16a34a)">
-      <p>🏠 Andar</p><p id="cntIn">0</p>
+    <div class="sc" style="background:linear-gradient(135deg,#22c55e,#16a34a)">
+      <p>🏠 Andar</p><p id="cIn">0</p>
     </div>
   </div>
 
   <div class="card">
-    <div class="filter-row">
-      <button class="filter-btn" style="background:rgba(99,102,241,0.3);color:#a5b4fc" onclick="filterE('all')">Sab</button>
-      <button class="filter-btn" style="background:rgba(239,68,68,0.3);color:#fca5a5" onclick="filterE('out')">🚪 Bahar</button>
-      <button class="filter-btn" style="background:rgba(34,197,94,0.3);color:#86efac" onclick="filterE('in')">🏠 Andar</button>
-      <button class="filter-btn" style="background:rgba(249,115,22,0.3);color:#fdba74" onclick="filterE('visitor')">👥 Visitor</button>
+    <div class="fr">
+      <button class="fb" style="background:rgba(99,102,241,.3);color:#a5b4fc" onclick="filt('all')">Sab</button>
+      <button class="fb" style="background:rgba(239,68,68,.3);color:#fca5a5" onclick="filt('out')">🚪 Bahar</button>
+      <button class="fb" style="background:rgba(34,197,94,.3);color:#86efac" onclick="filt('in')">🏠 Andar</button>
+      <button class="fb" style="background:rgba(249,115,22,.3);color:#fdba74" onclick="filt('visitor')">👥 Visitor</button>
     </div>
-    <div id="adminEntries"><p style="color:rgba(255,255,255,0.5);font-size:13px">Loading...</p></div>
+    <div id="admEnts"><p style="font-size:13px;color:rgba(255,255,255,.5)">Loading...</p></div>
   </div>
 
   <div class="card">
     <h4 style="margin-bottom:12px;color:#818cf8">➕ Naya Student Add Karo</h4>
-    <input type="text" id="nName" placeholder="Naam">
-    <input type="text" id="nRoll" placeholder="Roll Number">
-    <input type="tel" id="nPhone" placeholder="Phone (+91...)">
-    <div class="hostel-row">
-      <button class="hostel-btn active" id="nHB" onclick="selNewHostel('boys')">👨 Boys</button>
-      <button class="hostel-btn" id="nHG" onclick="selNewHostel('girls')">👩 Girls</button>
+    <input type="text" id="nNm" placeholder="Naam">
+    <input type="text" id="nRl" placeholder="Roll Number">
+    <input type="tel" id="nPh" placeholder="Phone (+91XXXXXXXXXX)">
+    <div class="h-row">
+      <button class="hb on" id="nHB" onclick="selH('boys','n')">👨 Boys</button>
+      <button class="hb" id="nHG" onclick="selH('girls','n')">👩 Girls</button>
     </div>
-    <input type="text" id="nRoom" placeholder="Room Number">
-    <p id="addMsg" class="msg-success" style="display:none"></p>
-    <button class="btn btn-primary" onclick="addStudent()">✅ Add Karo</button>
+    <input type="text" id="nRm" placeholder="Room Number">
+    <p id="addMsg" class="ok"></p>
+    <button class="btn bp" onclick="addStu()">✅ Add Karo</button>
   </div>
 
   <div class="card">
-    <h4 style="margin-bottom:12px">👥 Students List</h4>
-    <div id="studentsList"><p style="color:rgba(255,255,255,0.5);font-size:13px">Loading...</p></div>
+    <h4 style="margin-bottom:10px">👥 Students List</h4>
+    <div id="stuList"><p style="font-size:13px;color:rgba(255,255,255,.5)">Loading...</p></div>
   </div>
 
-  <button class="btn btn-gray" onclick="doLogout()">🚪 Logout</button>
+  <button class="btn bg" onclick="auth.signOut()">🚪 Logout</button>
 </div>
 
-<!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
-
 <script>
-// Firebase init
 firebase.initializeApp({
-  apiKey: "AIzaSyBhzhuUr2zVd7cPa7bCk5awlfUWxq4YKFg",
-  authDomain: "hostel--entry.firebaseapp.com",
-  projectId: "hostel--entry",
-  storageBucket: "hostel--entry.firebasestorage.app",
-  messagingSenderId: "88795447664",
-  appId: "1:88795447664:web:6c895ff9343e3c8f188fb5"
+  apiKey:"AIzaSyBhzhuUr2zVd7cPa7bCk5awlfUWxq4YKFg",
+  authDomain:"hostel--entry.firebaseapp.com",
+  projectId:"hostel--entry",
+  storageBucket:"hostel--entry.firebasestorage.app",
+  messagingSenderId:"88795447664",
+  appId:"1:88795447664:web:6c895ff9343e3c8f188fb5"
 });
-const auth = firebase.auth();
-const db = firebase.firestore();
-const storage = firebase.storage();
+const auth=firebase.auth();
+const db=firebase.firestore();
+const st=firebase.storage();
+const ADMINS=["potliya198@gmail.com"];
 
-const ADMIN_EMAILS = ["potliya198@gmail.com"];
-let curUser = null, stuData = null, confirmRes = null;
-let photoMain = null, photoVisitor = null;
-let selH = 'boys', selNH = 'boys', curFilter = 'all';
-let streamMain = null, streamVisitor = null;
+let cu=null,sd=null,cr=null,pm=null,pv=null,sH='boys',nH='boys',cf='all';
+let smM=null,smV=null;
 
-// Auth
-auth.onAuthStateChanged(async u => {
-  if (u) {
-    curUser = u;
-    if (ADMIN_EMAILS.includes(u.email)) {
-      showAdminDash();
-    } else {
-      const d = await db.collection('students').doc(u.uid).get();
-      if (d.exists) { stuData = d.data(); showStudentDash(); }
-      else { showScr('regScreen'); }
+auth.onAuthStateChanged(async u=>{
+  if(u){
+    cu=u;
+    if(ADMINS.includes(u.email)){showAdm();}
+    else{
+      const d=await db.collection('students').doc(u.uid).get();
+      if(d.exists){sd=d.data();showStu();}
+      else{scr('regScreen');}
     }
-  } else {
-    showScr('loginScreen');
-  }
+  } else { scr('loginScreen'); }
 });
 
-function showScr(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+function scr(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+
+function loginTab(t){
+  document.getElementById('tS').classList.toggle('on',t==='student');
+  document.getElementById('tA').classList.toggle('on',t==='admin');
+  document.getElementById('stuDiv').style.display=t==='student'?'block':'none';
+  document.getElementById('admDiv').style.display=t==='admin'?'block':'none';
 }
 
-// Login tabs
-function showLoginTab(t) {
-  document.getElementById('tabS').classList.toggle('active', t==='student');
-  document.getElementById('tabA').classList.toggle('active', t==='admin');
-  document.getElementById('studentLoginDiv').style.display = t==='student' ? 'block' : 'none';
-  document.getElementById('adminLoginDiv').style.display = t==='admin' ? 'block' : 'none';
+function sendOTP(){
+  const ph=document.getElementById('phInp').value.trim();
+  if(!ph||ph.length<10){msg('phErr','Sahi phone daalo!',1);return;}
+  if(!window.rcv){window.rcv=new firebase.auth.RecaptchaVerifier('recaptcha-container',{size:'invisible'});}
+  auth.signInWithPhoneNumber(ph,window.rcv)
+    .then(r=>{cr=r;document.getElementById('ph1').style.display='none';document.getElementById('ph2').style.display='block';})
+    .catch(e=>msg('phErr','Error: '+e.message,1));
 }
 
-// OTP
-function sendOTP() {
-  const phone = document.getElementById('phoneInput').value.trim();
-  if (!phone || phone.length < 10) { showMsg('phoneErr', 'Sahi phone daalo!', true); return; }
-  if (!window.recapV) {
-    window.recapV = new firebase.auth.RecaptchaVerifier('recaptcha-container', {size:'invisible'});
-  }
-  auth.signInWithPhoneNumber(phone, window.recapV)
-    .then(r => { confirmRes = r; document.getElementById('phoneDiv').style.display='none'; document.getElementById('otpDiv').style.display='block'; })
-    .catch(e => showMsg('phoneErr', 'Error: ' + e.message, true));
+function on(i){const v=document.getElementById('o'+i).value;if(v&&i<5)document.getElementById('o'+(i+1)).focus();}
+
+function verOTP(){
+  let o='';for(let i=0;i<6;i++)o+=document.getElementById('o'+i).value;
+  if(o.length<6){msg('otpErr','6 digit OTP daalo!',1);return;}
+  cr.confirm(o).catch(()=>msg('otpErr','Galat OTP! Dobara try karo.',1));
 }
 
-function otpNext(i) {
-  const v = document.getElementById('o'+i).value;
-  if (v && i < 5) document.getElementById('o'+(i+1)).focus();
-}
+function back1(){document.getElementById('ph1').style.display='block';document.getElementById('ph2').style.display='none';}
 
-function verifyOTP() {
-  let otp = '';
-  for(let i=0;i<6;i++) otp += document.getElementById('o'+i).value;
-  if (otp.length < 6) { showMsg('otpErr','6 digit OTP daalo!',true); return; }
-  confirmRes.confirm(otp).catch(e => showMsg('otpErr','Galat OTP!',true));
-}
-
-function backPhone() {
-  document.getElementById('phoneDiv').style.display='block';
-  document.getElementById('otpDiv').style.display='none';
-}
-
-// Admin login
-function adminLogin() {
-  const e = document.getElementById('adminEmail').value;
-  const p = document.getElementById('adminPass').value;
+function admLogin(){
+  const e=document.getElementById('aEmail').value;
+  const p=document.getElementById('aPass').value;
   auth.signInWithEmailAndPassword(e,p)
-    .catch(() => auth.createUserWithEmailAndPassword(e,p)
-    .catch(err => showMsg('adminErr','Error: '+err.message,true)));
+    .catch(()=>auth.createUserWithEmailAndPassword(e,p)
+    .catch(er=>msg('aErr','Error: '+er.message,1)));
 }
 
-// Hostel select
-function selHostel(t) {
-  selH=t;
-  document.getElementById('hB').classList.toggle('active',t==='boys');
-  document.getElementById('hG').classList.toggle('active',t==='girls');
-}
-function selNewHostel(t) {
-  selNH=t;
-  document.getElementById('nHB').classList.toggle('active',t==='boys');
-  document.getElementById('nHG').classList.toggle('active',t==='girls');
+function selH(t,x){
+  if(x==='r'){sH=t;document.getElementById('rHB').classList.toggle('on',t==='boys');document.getElementById('rHG').classList.toggle('on',t==='girls');}
+  else{nH=t;document.getElementById('nHB').classList.toggle('on',t==='boys');document.getElementById('nHG').classList.toggle('on',t==='girls');}
 }
 
-// Register
-async function doRegister() {
-  const name=document.getElementById('regName').value.trim();
-  const roll=document.getElementById('regRoll').value.trim();
-  const room=document.getElementById('regRoom').value.trim();
-  if(!name||!roll||!room){showMsg('regErr','Sab bharo!',true);return;}
-  const phone=curUser.phoneNumber;
-  const snap=await db.collection('preRegistered').where('phone','==',phone).get();
-  if(snap.empty){showMsg('regErr','Number registered nahi! Admin se baat karo.',true);return;}
-  const data={uid:curUser.uid,name,roll,phone,hostel:selH,room,status:'in',createdAt:new Date().toISOString()};
-  await db.collection('students').doc(curUser.uid).set(data);
-  stuData=data; showStudentDash();
+async function doReg(){
+  const n=document.getElementById('rName').value.trim();
+  const r=document.getElementById('rRoll').value.trim();
+  const rm=document.getElementById('rRoom').value.trim();
+  if(!n||!r||!rm){msg('rErr','Sab fields bharo!',1);return;}
+  const ph=cu.phoneNumber;
+  const sn=await db.collection('preRegistered').where('phone','==',ph).get();
+  if(sn.empty){msg('rErr','Number registered nahi! Admin se contact karo.',1);return;}
+  const data={uid:cu.uid,name:n,roll:r,phone:ph,hostel:sH,room:rm,status:'in',createdAt:new Date().toISOString()};
+  await db.collection('students').doc(cu.uid).set(data);
+  sd=data;showStu();
 }
 
-// Student Dashboard
-function showStudentDash() {
-  showScr('studentScreen');
-  document.getElementById('myName').textContent = stuData.name.split(' ')[0];
-  updateStatus();
-  loadHistory();
+function showStu(){
+  scr('stuScreen');
+  document.getElementById('hSub').textContent='Welcome, '+sd.name.split(' ')[0]+'!';
+  document.getElementById('myNm').textContent=sd.name.split(' ')[0];
+  updStat();loadHist();
 }
 
-function updateStatus() {
-  const out = stuData.status==='out';
-  document.getElementById('myStatus').textContent = out ? '🚪 Bahar' : '🏠 Andar';
-  document.getElementById('actionTxt').textContent = out ? 'Wapas aane ke liye selfie lo' : 'Bahar jaane ke liye selfie lo';
-  document.getElementById('exitBtn').style.display = !out ? 'block' : 'none';
-  document.getElementById('enterBtn').style.display = out ? 'block' : 'none';
+function updStat(){
+  const out=sd.status==='out';
+  document.getElementById('myStat').textContent=out?'🚪 Bahar':'🏠 Andar';
+  document.getElementById('actTxt').textContent=out?'Wapas aane ke liye selfie lo':'Bahar jaane ke liye selfie lo';
+  document.getElementById('outBtn').style.display=!out?'block':'none';
+  document.getElementById('inBtn').style.display=out?'block':'none';
 }
 
-// Camera
-function openCam(t) {
-  const vid = t==='main' ? document.getElementById('camV') : document.getElementById('vCamV');
-  navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false}).then(s => {
-    if(t==='main'){streamMain=s;} else {streamVisitor=s;}
-    vid.srcObject=s; vid.style.display='block';
-    if(t==='main'){document.getElementById('snapBtn').style.display='block';}
-    else{document.getElementById('vSnapBtn').style.display='block';}
-  }).catch(()=>alert('Camera permission do!'));
+function openCam(t){
+  const vid=t==='m'?document.getElementById('mV'):document.getElementById('vV');
+  navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false})
+    .then(s=>{
+      if(t==='m'){smM=s;}else{smV=s;}
+      vid.srcObject=s;vid.style.display='block';
+      document.getElementById(t==='m'?'mCSnap':'vSnap').style.display='block';
+    }).catch(()=>alert('Camera permission do!'));
 }
 
-function snapPhoto(t) {
-  const vid = t==='main' ? document.getElementById('camV') : document.getElementById('vCamV');
-  const img = t==='main' ? document.getElementById('camImg') : document.getElementById('vCamImg');
-  const canvas=document.createElement('canvas');
-  canvas.width=vid.videoWidth; canvas.height=vid.videoHeight;
-  canvas.getContext('2d').drawImage(vid,0,0);
-  const data=canvas.toDataURL('image/jpeg',0.7);
-  if(t==='main'){photoMain=data;} else {photoVisitor=data;}
-  img.src=data; img.style.display='block'; vid.style.display='none';
-  if(t==='main'){
-    streamMain && streamMain.getTracks().forEach(tr=>tr.stop());
-    document.getElementById('snapBtn').style.display='none';
-    document.getElementById('retakeBtn').style.display='block';
-    document.getElementById('exitBtn').style.display = stuData.status!=='out' ? 'block' : 'none';
-    document.getElementById('enterBtn').style.display = stuData.status==='out' ? 'block' : 'none';
-  } else {
-    streamVisitor && streamVisitor.getTracks().forEach(tr=>tr.stop());
-    document.getElementById('vSnapBtn').style.display='none';
-    document.getElementById('vRetakeBtn').style.display='block';
-  }
+function snap(t){
+  const vid=t==='m'?document.getElementById('mV'):document.getElementById('vV');
+  const im=t==='m'?document.getElementById('mI'):document.getElementById('vI');
+  const c=document.createElement('canvas');
+  c.width=vid.videoWidth;c.height=vid.videoHeight;
+  c.getContext('2d').drawImage(vid,0,0);
+  const d=c.toDataURL('image/jpeg',.7);
+  if(t==='m'){pm=d;}else{pv=d;}
+  im.src=d;im.style.display='block';vid.style.display='none';
+  if(t==='m'){smM&&smM.getTracks().forEach(tr=>tr.stop());document.getElementById('mCSnap').style.display='none';document.getElementById('mCRet').style.display='block';document.getElementById('outBtn').style.display=sd.status!=='out'?'block':'none';document.getElementById('inBtn').style.display=sd.status==='out'?'block':'none';}
+  else{smV&&smV.getTracks().forEach(tr=>tr.stop());document.getElementById('vSnap').style.display='none';document.getElementById('vRet').style.display='block';}
 }
 
-function retake(t) {
-  if(t==='main'){
-    photoMain=null;
-    document.getElementById('camImg').style.display='none';
-    document.getElementById('retakeBtn').style.display='none';
-    document.getElementById('exitBtn').style.display='none';
-    document.getElementById('enterBtn').style.display='none';
-  } else {
-    photoVisitor=null;
-  
+function ret(t){
+  if(t==='m'){pm=null;document.getElementById('mI').style.display='none';document.getElementById('mCRet').style.display='none';document.getElementById('outBtn').style.display='none';document.getElementById('inBtn').style.display='none';}
+  else{pv=null;document.getElementById('vI').style.display='none';document.getElementById('vRet').style.display='none';}
+  openCam(t);
+}
+
+async function doEnt(type){
+  if(!pm){alert('Pehle selfie lo!');return;}
+  try{
+    let loc=null;
+    try{const p=await new Promise((r,j)=>navigator.geolocation.getCurrentPosition(r,j,{timeout:5000}));loc={lat:p.coords.latitude,lng:p.coords.longitude};}catch(e){}
+    const rf=st.ref('entries/'+cu.uid+'_'+Date.now()+'.jpg');
+    await rf.putString(pm,'data_url');
+    const url=await rf.getDownloadURL();
+    await db.collection('entries').add({uid:cu.uid,name:sd.name,roll:sd.roll,hostel:sd.hostel,room:sd.room,type,photoURL:url,location:loc,timestamp:new Date().toISOString(),time:new Date().toLocaleTimeString('hi-IN'),date:new Date().toLocaleDateString('hi-IN')});
+    await db.collection('students').doc(cu.uid).update({status:type==='out'?'out':'in'});
+    sd.status=type==='out'?'out':'in';
+    pm=null;document.getElementById('mI').style.display='none';document.getElementById('mCRet').style.display='none';document.getElementById('outBtn').style.display='none';document.getElementById('inBtn').style.display='none';
+    msg('entMsg',type==='out'?'✅ Bahar jaane ki entry ho gayi!':'✅ Wapas aane ki entry ho gayi!',0);
+    updStat();loadHist();
+  }catch(e){alert('Error: '+e.message);}
+}
+
+async function addVis(){
+  const n=document.getElementById('vNm').value.trim();
+  const p=document.getElementById('vPh').value.trim();
+  const r=document.getElementById('vRs').value.trim();
+  if(!n||!p){alert('Naam aur phone zaroori!');return;}
+  if(!pv){alert('Dono saath selfie zaroori!');return;}
+  try{
+    const rf=st.ref('visitors/'+cu.uid+'_'+Date.now()+'.jpg');
+    await rf.putString(pv,'data_url');
+    const url=await rf.getDownloadURL();
+    await db.collection('entries').add({uid:cu.uid,hostStudentName:sd.name,hostStudentRoll:sd.roll,hostel:sd.hostel,type:'visitor',visitorName:n,visitorPhone:p,reason:r,photoURL:url,status:'in',timestamp:new Date().toISOString(),time:new Date().toLocaleTimeString('hi-IN'),date:new Date().toLocaleDateString('hi-IN')});
+    document.getElementById('vNm').value='';document.getElementById('vPh').value='';document.getElementById('vRs').value='';
+    pv=null;document.getElementById('vI').style.display='none';document.getElementById('vRet').style.display='none';
+    msg('visMsg','✅ Visitor entry ho gayi!',0);
+  }catch(e){alert('Error: '+e.message);}
+}
+
+function loadHist(){
+  db.collection('entries').where('uid','==',cu.uid).orderBy('timestamp','desc').limit(10)
+    .onSnapshot(sn=>{
+      const c=document.getElementById('myHist');
+    
